@@ -6,8 +6,8 @@ from root_user.views import get_media_path
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/' , include("drf_social_oauth2.urls", namespace='drf')),
-    path('api_root/', include('root_user.urls')),
-    path('api/music/', include('root_music_config.urls'))
+    path('api_root/auth/', include('root_user.urls')),
+    path('api_root/music/', include('root_music_config.urls'))
 ]
 
 urlpatterns += [

@@ -136,14 +136,6 @@ class RegisterSerializer(serializers.ModelSerializer):
         user.save()
 
         return user
-    
-class UserInformation(serializers.ModelSerializer):
-
-    class Meta:
-        model = User
-        fields = '__all__'
-
-
 
 
 def rename_file(file):

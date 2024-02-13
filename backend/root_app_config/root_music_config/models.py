@@ -9,11 +9,12 @@ class MusicContainer(models.Model):
     owner = models.ForeignKey(User, on_delete = models.CASCADE, related_name = 'music_owner')
     title = models.CharField(max_length = 200)
     likes = models.ForeignKey(User, on_delete = models.CASCADE, related_name = 'music_object_likes', blank = True, null=True)
-    music_file = models.FileField(upload_to='music_files')
+    music_file = models.FileField(upload_to='music_files/audio')
     length = models.TimeField(blank = True, null = True)
     replays = models.IntegerField()
     sample_rate = models.FloatField( default = 0.0)
     genre = models.CharField(max_length = 128, default = '')
+    music_cover_art = models.ImageField(upload_to='music_files/cover_art',null = True, blank= True, default= None)
     created = models.DateTimeField(auto_now_add=True)
     updated  = models.DateTimeField(auto_now=True)
  

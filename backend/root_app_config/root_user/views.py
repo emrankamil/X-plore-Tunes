@@ -10,13 +10,13 @@ from django.http import FileResponse
 # rest frame work imports
 from rest_framework import generics
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
 
 
 # project imports
 from .models import AuthUserModel as User
-from .serializer import UserSerializer, RegisterSerializer, UserInformation
+from .serializer import UserSerializer, RegisterSerializer
 
 #-------------------class based views-------------------------
 
@@ -34,8 +34,8 @@ class UserInformationRetrieveAPIView(generics.RetrieveAPIView):
     """
     lookup_field = 'username'
     queryset = User
-    serializer_class = UserInformation
-    permission_classes = [AllowAny]
+    serializer_class = UserSerializer
+    permission_classes = [IsAuthenticated]
     
 
 class UserProfileUpdateAPIView(generics.UpdateAPIView):

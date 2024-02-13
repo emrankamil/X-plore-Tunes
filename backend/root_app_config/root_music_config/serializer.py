@@ -21,18 +21,12 @@ class MusicSerializer(serializers.ModelSerializer):
             'likes',
             'music_file',
             'length',
-            'replays'
+            'replays',
+            'music_cover_art'
         ]
-
-    def validate(self, attrs):
-        music = attrs['music_file']
-        validate_music(music.temporary_file_path())
-        return super().validate(attrs)
-    
     
     def create(self, validated_data):
         return Music.objects.create(**validated_data)
-
 
 
 def validate_music(music):
