@@ -60,7 +60,7 @@ class UserProfileUpdateAPIView(generics.UpdateAPIView):
     
 
 @api_view(["GET"])
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 def get_media_path(request, path) -> FileResponse:
     """
     The get_media_path function is a helper function that takes in the request and

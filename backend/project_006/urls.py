@@ -11,6 +11,6 @@ urlpatterns = [
 ]
 
 urlpatterns += [
-        path("media/<str:path>", get_media_path, name="get-media-path"),
-        path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    path("media/<str:path>", get_media_path, name="get-media-path"),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]

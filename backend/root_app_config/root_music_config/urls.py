@@ -9,7 +9,6 @@ from .views import (
 
 
 urlpatterns = [
-    # basic login, sign in and logout pages
     path('create/', MusicCreateAPIView.as_view(), name='create_music'),
     
 ]

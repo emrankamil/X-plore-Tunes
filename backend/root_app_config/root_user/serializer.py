@@ -56,6 +56,7 @@ class UserSerializer(serializers.ModelSerializer):
         if image:
             image.name = rename_file(image)
             instance.profile_picture.delete()
+    
 
         for key, value in validated_data.items():
             if key == 'profile_picture':
@@ -112,10 +113,10 @@ class RegisterSerializer(serializers.ModelSerializer):
 
 
     def validate(self, attrs):
-        temp = validate_password(attrs['password'])
+        password = validate_password(attrs['password'])
         messages = {}
-        if temp:
-            for index, error_type in enumerate(temp):
+        if password:
+            for index, error_type in enumerate(password):
                 messages[f'password validation error {index}'] = error_type
 
         if attrs['password'] != attrs['password2']:

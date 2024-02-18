@@ -24,12 +24,25 @@ class MusicSerializer(serializers.ModelSerializer):
             'replays',
             'music_cover_art'
         ]
-    
-    def create(self, validated_data):
-        return Music.objects.create(**validated_data)
 
 
 def validate_music(music):
     tag = TinyTag.get(music)
     print(tag)
 
+
+
+class MusicUpdateSerializer(serializers.ModelSerializer):
+    model = Music
+    fields = [
+        'owner',
+        'title',
+        'likes',
+        'music_file',
+        'length',
+        'replays',
+        'music_cover_art'
+    ]
+
+    def update(self, instance, validated_data):
+        return super().update(instance, validated_data)
