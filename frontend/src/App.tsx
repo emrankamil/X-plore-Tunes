@@ -9,6 +9,7 @@ import Layout from './pages/Layout';
 import Home from './pages/Home';
 import NoPage from './pages/NoPage';
 import SignUp from './pages/SignUp';
+import MusicStudio from './pages/MusicStudio';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path="login" element={<Login/>} />
           <Route path="signup" element={<SignUp/>}/>
+          <Route path="studio" element={<MusicStudio/>}/>
           <Route path="*" element={<NoPage />} />
         </Route>
       </Routes>

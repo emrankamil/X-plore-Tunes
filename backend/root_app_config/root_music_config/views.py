@@ -17,8 +17,11 @@ from .models import MusicContainer as Music
 from .serializer import MusicSerializer
 
 
-
 class MusicCreateAPIView(generics.CreateAPIView):
     queryset = Music
     serializer_class = MusicSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
+
+class MusicListAPIView(generics.ListAPIView):
+    queryset = Music.objects.all()
+    serializer_class = MusicSerializer

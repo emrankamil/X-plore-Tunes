@@ -11,7 +11,6 @@ from django.contrib.auth import get_user_model
 from .models import MusicContainer as Music
 
 
-
 class MusicSerializer(serializers.ModelSerializer):
     class Meta:
         model = Music
@@ -22,14 +21,14 @@ class MusicSerializer(serializers.ModelSerializer):
             'music_file',
             'length',
             'replays',
-            'music_cover_art'
+            'music_cover_art',
+            'stream'
         ]
 
 
 def validate_music(music):
     tag = TinyTag.get(music)
     print(tag)
-
 
 
 class MusicUpdateSerializer(serializers.ModelSerializer):
