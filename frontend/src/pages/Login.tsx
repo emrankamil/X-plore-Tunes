@@ -6,9 +6,23 @@ function Login(props: any){
     const [activeItem, setActiveItem] = useState({id:null, title:"",completed:false});
     const [editing, setEditing] = useState(false)
 
+    const BaseUrl = 'localhost:800/auth/token'
+    const formData = new FormData();
+    formData.append('username','emran2')
+    formData.append('password','eman123')
+    formData.append('grant_type','password')
+    formData.append('client_id','5WRT1ickd2vJWiSlWxZjdchzTQE3CG3i7m8sZLvp')
+    formData.append('client_secret','pbkdf2_sha256$600000$gGrwHgoeu9jnFo2gRlTA86$K7/ehYlMi8g3sR+6C6Ie6u/vtZvla8QyuWiyn7gWvCw=')
+    const Options = {
+      method:'post',
+      body: formData
+    }
 
-    function fetchTasks(){
-        console.log('Fetching ...');
+    function fetchTasks() {
+        fetch(BaseUrl, Options).
+        then((response)=>{
+          console.log(response.json())
+        })
     };
    
     return(
@@ -50,7 +64,7 @@ function Login(props: any){
             </a>
           </div>
           <div className="mt-8">
-            <button className="bg-blue-700 text-white font-bold py-2 px-4 w-full rounded hover:bg-blue-600">
+            <button className="bg-blue-700 text-white font-bold py-2 px-4 w-full rounded hover:bg-blue-600" onClick={fetchTasks}>
               Login
             </button>
           </div>

@@ -106,7 +106,7 @@ class RegisterSerializer(serializers.ModelSerializer):
             'email',
             'gender',
             'age',
-            'premium_user',
+            'is_creator',
             'password',
             'password2'
         ]

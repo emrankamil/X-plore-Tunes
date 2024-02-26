@@ -13,71 +13,67 @@ interface Music {
 }
 
 const MusicStudio = () => {
-  const { musicId } = useParams<{ musicId?: string }>();
 
   const [title, setTitle] = useState<string>('');
   const [length, setLength] = useState<string>('');
-  const [musicFile, setMusicFile] = useState('');
-  const [musicCover, setMusicCover] = useState('');
+  const [musicFile, setMusicFile] = useState(null);
+  const [musicCover, setMusicCover] = useState(null);
 
   const baseUrl = 'http://localhost:8000/api_root/music/create/';
 
-  // useEffect(()=>{
 
-  //   fetch(baseUrl, {
-  //     method: "POST",
-  //     body: JSON.stringify({postMusic}),
-  //     headers: {
-  //         "Content-type": "application/json; charset=UTF-8"
-  //     }
-  //   })
-  //   .then((response)=>response.json())
-  //   .then((json)=>console.log(json))
+  function handleImageUpload(e: any): any {
+    setMusicCover(e.target.files[0]);
+  }
 
-  // }, [])
+  function handleMusicUpload(e: any): any {
+    setMusicFile(e.target.files[0]);
+  }
 
-  const handleFetch = () => {
-    const postMusic = {
-      'owner':'owner',
-      'title':title,
-      'likes':0,
-      'stream':0,
-      'length':'00:00:00',
-      'musicFile':musicFile,
-      'replays':0,
-      'musicCover':musicCover,
+  const handleFetch = async (e:any) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append('owner', '1')
+    formData.append('title', title)
+    formData.append('likes','1')
+    formData.append('length', '00:12:23')
+    if (musicFile){
+      formData.append('music_file', musicFile)
+      console.log(musicFile)
     }
+    formData.append('replays', '0')
+    if (musicCover){
+      formData.append('music_cover_art', musicCover)
+      console.log(musicCover)
+    }
+
     const requestOptions = {
       method: 'POST',
-      body: JSON.stringify(postMusic),
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-      },
+      body: formData,
+      // headers: {
+      //           "Content-type": "multipart/form-data; charset=UTF-8"
+      //       }
     };
 
-    fetch(baseUrl, requestOptions)
-      .then(async (response) => {
-        const isJson = response.headers.get('content-type')?.includes('application/json');
-        const data = isJson && (await response.json());
+    try {
+      const response = await fetch(baseUrl, requestOptions);
 
-        // check for error response
-        if (!response.ok) {
-          // get error message from body or default to response status
-          const error = (data && data.message) || response.status;
-          return Promise.reject(error);
-        }
-
-        console.log('success');
-      })
-      .catch((error) => {
-        console.error('There was an error!', error);
-      });
+      if (response.ok) {
+        console.log('Data posted successfully');
+      } else {
+        console.error('Failed to post data');
+      }
+    } catch (error) {
+      console.error('Error posting data:', error);
+    }
+      
   };
 
   return (
     <div className="container mx-auto mt-8">
       <h2 className="text-2xl font-semibold mb-4">{'Create'} Music</h2>
-      <form>
+      <form onSubmit={handleFetch} id="form">
         <div className="mb-4">
           <label htmlFor="title" className="block text-sm font-medium text-gray-600">
             Title
@@ -111,8 +107,9 @@ const MusicStudio = () => {
           <input
             type="file"
             id="musicFile"
+            accept="music_files/audio/*"
             name="musicFile"
-            onChange={(e) => setMusicFile(e.target.files[0])}
+            onChange={handleImageUpload}
             className="mt-1 p-2 w-full border rounded-md"
           />
         </div>
@@ -123,15 +120,15 @@ const MusicStudio = () => {
           <input
             type="file"
             id="coverArtFile"
+            accept="music_files/cover_art/*"
             name="coverArtFile"
-            onChange={(e) => setMusicCover(e.target.files[0])}
+            onChange={handleMusicUpload}
             className="mt-1 p-2 w-full border rounded-md"
           />
         </div>
         <div className="flex items-center">
           <button
-            type="button"
-            onClick={handleFetch}
+            type="submit"
             className="bg-blue-500 text-white px-4 py-2 rounded-md mr-2"
           >
             Save
@@ -149,6 +146,22 @@ export default MusicStudio;
 
 
 // const MusicStudio = () => {
+
+  // useEffect(()=>{
+
+  //   fetch(baseUrl, {
+  //     method: "POST",
+  //     body: JSON.stringify({postMusic}),
+  //     headers: {
+  //         "Content-type": "application/json; charset=UTF-8"
+  //     }
+  //   })
+  //   .then((response)=>response.json())
+  //   .then((json)=>console.log(json))
+
+  // }, [])
+
+
 //   const { musicId } = useParams<{ musicId?: string }>();
 
 //   const [owner, setOwner] = useState<string>('');
